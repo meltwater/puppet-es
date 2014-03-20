@@ -1,4 +1,4 @@
-name    'puppet-es'
+name    'meltwater-es'
 version '1.0.0'
 source 'https://github.com/meltwater/puppet-es'
 author 'meltwater'
