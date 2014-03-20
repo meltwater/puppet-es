@@ -1,0 +1,118 @@
+# Managed by Puppet, DO NOT TOUCH!
+#
+
+transport:
+        tcp:
+                port: <%= @es_tcp_port_range %>
+                compress: <%= @es_tcp_compress %>
+
+http:
+        port: <%= @es_http_port_range %>
+
+cluster:
+        name: "<%= @clustername %>"
+        routing.allocation:
+                cluster_concurrent_rebalance: 768
+                disable_replica_allocation: false
+                disable_allocation: false
+                node_concurrent_recoveries: 32
+                node_initial_primaries_recoveries: 64
+                balance.threshold: 1.2
+                disk:
+                        threshold_enabled: true
+                        watermark.low: 0.75
+                        watermark.high: 0.9
+
+path:
+        logs: <%= @es_log_path %>
+        data: <%= @es_data_path %>
+
+bootstrap:
+        mlockall: true
+
+<% if @threadpools -%>
+threadpool:
+<% @threadpools.keys.each do |type| %>
+        <%= type %>:
+        <% @threadpools[type].each do |k,v| -%>
+                <%= k %>: <%= v %>
+        <% end -%>
+<% end -%>
+<% end -%>
+
+
+node:
+        data: <%= @nodedata %>
+        master: <%= @master %>
+        name: <%= @hostname %>_<%= @name %>
+<% if @nodetag -%>
+        tag: <%= @nodetag %>
+<% end -%>
+
+indices.cache.filter.size: <%= @indices_cache_filter_size %>
+indices.fielddata.cache.size: <%= @indices_fielddata_cache_size %>
+indices.fielddata.cache.expire: <%= @indices_fielddata_cache_expire %>
+index.cache.filter.type: <%= @index_cache_filter_type %>
+index.refresh_interval: <%= @index_refresh_interval %>
+
+## Discovery
+discovery.zen.ping:
+            multicast.enabled: <%= @multicast -%>
+
+<% if not @multicast -%>
+            unicast.hosts: <%= @es_unicast_hosts -%>
+<% end -%>
+
+discovery.zen.ping_timeout: 30s
+
+discovery.zen.fd:
+            ping_timeout: 30s
+            ping_retries: 10
+            ping_interval: 20s
+
+discovery.zen.minimum_master_nodes: <%= @minimum_master_nodes_int %>
+discovery.initial_state_timeout: 30m
+
+index.number_of_shards: <%= @number_of_shards %>
+index.number_of_replicas: <%= @number_of_replicas %>
+
+index.store.type: <%= @iostore %>
+
+gateway.recover_after_nodes: <%= @cluster_nodes %>
+gateway.expected_nodes: <%= @cluster_nodes %>
+
+index.auto_expand_replicas: false
+
+indices.store.throttle.type: none
+indices.recovery.max_bytes_per_sec: 512m
+indices.recovery.concurrent_streams: 16
+
+action.disable_delete_all_indices: <%= @disable_delete_all_indices %>
+
+index.query.bool.max_clause_count: 131072
+
+marvel.agent.enabled: <%= @marvel_agent %>
+<% if @marvel_exporter_hosts -%>
+marvel.agent.exporter.es.hosts: <%= @marvel_exporter_hosts -%>
+<% end -%>
+
+cluster.routing.allocation.same_shard.host: <%= @es_prevent_same_node_allocation -%>
+
+################################## Slow Log ##################################
+
+# Shard level query and fetch threshold logging.
+
+index.search.slowlog.level: TRACE
+index.search.slowlog.threshold.query.warn: 10s
+index.search.slowlog.threshold.query.info: 5s
+index.search.slowlog.threshold.query.debug: 2s
+index.search.slowlog.threshold.query.trace: 500ms
+
+index.search.slowlog.threshold.fetch.warn: 1s
+index.search.slowlog.threshold.fetch.info: 800ms
+index.search.slowlog.threshold.fetch.debug: 500ms
+index.search.slowlog.threshold.fetch.trace: 200ms
+
+<% @custom_config.each do |val| -%>
+<%= val %>
+<% end -%>
