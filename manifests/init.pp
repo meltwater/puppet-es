@@ -43,6 +43,7 @@ define es(
   $index_refresh_interval = '60s',
   $cluster_concurrent_rebalance = '768',
   $disable_replica_allocation = false,
+  $disable_allocation = false,
   $node_concurrent_recoveries = '32',
   $node_initial_primaries_recoveries = '64',
   $balance_threshold = '1.2',
