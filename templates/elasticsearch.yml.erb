@@ -12,16 +12,16 @@ http:
 cluster:
         name: "<%= @clustername %>"
         routing.allocation:
-                cluster_concurrent_rebalance: 768
-                disable_replica_allocation: false
-                disable_allocation: false
-                node_concurrent_recoveries: 32
-                node_initial_primaries_recoveries: 64
-                balance.threshold: 1.2
+                cluster_concurrent_rebalance: <%= @cluster_concurrent_rebalance %>
+                disable_replica_allocation: <%= @disable_replica_allocation %>
+                disable_allocation: <%= @disable_allocation %>
+                node_concurrent_recoveries: <%= @node_concurrent_recoveries %>
+                node_initial_primaries_recoveries: <%= @node_initial_primaries_recoveries %>
+                balance.threshold: <%= @balance_threshold %>
                 disk:
-                        threshold_enabled: true
-                        watermark.low: 0.75
-                        watermark.high: 0.9
+                        threshold_enabled: <%= @routing_allocation_disk_threshold_enabled %>
+                        watermark.low: <%= @routing_allocation_disk_watermark_low %>
+                        watermark.high: <%= @routing_allocation_disk_watermark_high %>
 
 path:
         logs: <%= @es_log_path %>
@@ -63,15 +63,15 @@ discovery.zen.ping:
             unicast.hosts: <%= @es_unicast_hosts -%>
 <% end -%>
 
-discovery.zen.ping_timeout: 30s
+discovery.zen.ping_timeout: <%= @discovery_zen_ping_timeout %>
 
 discovery.zen.fd:
-            ping_timeout: 30s
-            ping_retries: 10
-            ping_interval: 20s
+            ping_timeout: <%= @discovery_zen_fd_ping_timeout %>
+            ping_retries: <%= @discovery_zen_fd_ping_retries %>
+            ping_interval: <%= @discovery_zen_fd_ping_interval %>
 
 discovery.zen.minimum_master_nodes: <%= @minimum_master_nodes_int %>
-discovery.initial_state_timeout: 30m
+discovery.initial_state_timeout: <%= @discovery_initial_state_timeout %>
 
 index.number_of_shards: <%= @number_of_shards %>
 index.number_of_replicas: <%= @number_of_replicas %>
@@ -81,15 +81,15 @@ index.store.type: <%= @iostore %>
 gateway.recover_after_nodes: <%= @cluster_nodes %>
 gateway.expected_nodes: <%= @cluster_nodes %>
 
-index.auto_expand_replicas: false
+index.auto_expand_replicas: <%= @index_auto_expand_replicas %>
 
-indices.store.throttle.type: none
-indices.recovery.max_bytes_per_sec: 512m
-indices.recovery.concurrent_streams: 16
+indices.store.throttle.type: <%= @indices_store_throttle_type %>
+indices.recovery.max_bytes_per_sec: <%= @indices_recovery_max_bytes_per_sec %>
+indices.recovery.concurrent_streams: <%= @indices_recovery_concurrent_streams %>
 
 action.disable_delete_all_indices: <%= @disable_delete_all_indices %>
 
-index.query.bool.max_clause_count: 131072
+index.query.bool.max_clause_count: <%= @index_query_bool_max_clause_count %>
 
 marvel.agent.enabled: <%= @marvel_agent %>
 <% if @marvel_exporter_hosts -%>

@@ -31,8 +31,7 @@ define es(
   $number_of_replicas = '1',
   $cluster_nodes = '1',
   $minimum_master_nodes = false,
-  $marvel_install = false,
-  $marvel_agent = true,
+  $marvel_agent = false,
   $marvel_exporter_hosts = none,
   $iostore = 'niofs',
   $disable_delete_all_indices = true,
@@ -41,6 +40,24 @@ define es(
   $indices_fielddata_cache_expire = '5m',
   $index_cache_filter_type = 'none',
   $index_refresh_interval = '60s',
+  $cluster_concurrent_rebalance = '768',
+  $disable_replica_allocation = false,
+  $node_concurrent_recoveries = '32',
+  $node_initial_primaries_recoveries = '64',
+  $balance_threshold = '1.2',
+  $routing_allocation_disk_threshold_enabled = true,
+  $routing_allocation_disk_watermark_low = '0.75',
+  $routing_allocation_disk_watermark_high = '0.9',
+  $index_query_bool_max_clause_count = '131072',
+  $index_auto_expand_replicas = false,
+  $discovery_zen_ping_timeout = '30s',
+  $discovery_zen_fd_ping_timeout = '30s',
+  $discovery_zen_fd_ping_retries = '10',
+  $discovery_zen_fd_ping_interval = '20s',
+  $discovery_initial_state_timeout = '30m',
+  $indices_store_throttle_type = 'none',
+  $indices_recovery_max_bytes_per_sec = '512m',
+  $indices_recovery_concurrent_streams = '16',
 ) {
 
   $es_path  = "${basepath}/${name}"
@@ -146,7 +163,7 @@ define es(
     require    => [ File["${es_path}/logs"], File["${es_path}/config"], File["${es_path}/bin"], File["${es_path}/lib"] ]
   }
 
-  if $marvel_install {
+  if $marvel_agent {
     exec { "install_marvel_${name}":
       command => "sh -c 'cd ${es_path} && bin/plugin -i elasticsearch/marvel/latest'",
       unless  => "sh -c 'stat ${es_path}/plugins/marvel'",
