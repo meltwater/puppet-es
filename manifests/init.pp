@@ -165,7 +165,7 @@ define es(
     require    => [ File["${es_path}/logs"], File["${es_path}/config"], File["${es_path}/bin"], File["${es_path}/lib"] ]
   }
 
-  if $marvel_agent {
+  if $marvel_install {
     exec { "install_marvel_${name}":
       command => "sh -c 'cd ${es_path} && bin/plugin -i elasticsearch/marvel/latest'",
       unless  => "sh -c 'stat ${es_path}/plugins/marvel'",
