@@ -98,6 +98,8 @@ marvel.agent.exporter.es.hosts: <%= @marvel_exporter_hosts -%>
 
 cluster.routing.allocation.same_shard.host: <%= @es_prevent_same_node_allocation -%>
 
+script.disable_dynamic: <%= @script_disable_dynamic -%>
+
 ################################## Slow Log ##################################
 
 # Shard level query and fetch threshold logging.
