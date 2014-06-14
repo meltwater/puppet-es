@@ -60,6 +60,7 @@ define es(
   $indices_store_throttle_type = 'none',
   $indices_recovery_max_bytes_per_sec = '512m',
   $indices_recovery_concurrent_streams = '16',
+  $script_disable_dynamic = false,
 ) {
 
   $es_path  = "${basepath}/${name}"
