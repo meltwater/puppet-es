@@ -8,4 +8,4 @@ description 'This defined type provides a way to use multiple Elastic Search ins
 project_page 'https://github.com/meltwater/puppet-es'
 
 dependency 'puppetlabs/stdlib', '>= 2.2.0'
-dependency 'camptocamp-archive'
+dependency 'camptocamp/archive', '>= 0.0.1'
