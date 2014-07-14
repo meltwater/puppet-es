@@ -10,7 +10,7 @@ define es(
   $es_tcp_port_range = '9300-9399',
   $es_ulimit_memlock = 'unlimited',
   $es_unicast_hosts = undef,
-  $es_url = "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${version}.tar.gz",
+  $es_url = '',
   $es_prevent_same_node_allocation = true,
   $group = 'elasticsearch',
   $javahome = '/usr/lib/jvm/java',
@@ -71,6 +71,12 @@ define es(
     $es_data_path = $datapath
   }
 
+  if $es_url == '' {
+    $es_download_url = "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${version}.tar.gz"
+  } else {
+    $es_download_url = $es_url
+  }
+  
   $es_download_path    = "${es_path}/elasticsearch-${version}"
   $es_pidfile          = "${es_pidpath}/${name}.pid"
   $es_xms              = $xms
@@ -104,7 +110,7 @@ define es(
     notify  => Service[$service_name],
   }->
   archive { "${name}-${version}":
-    url            => $es_url,
+    url            => $es_download_url,
     target         => $es_path,
     src_target     => $es_path,
     checksum       => false,
