@@ -10,7 +10,7 @@ define es(
   $es_tcp_port_range = '9300-9399',
   $es_ulimit_memlock = 'unlimited',
   $es_unicast_hosts = undef,
-  $es_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.tar.gz',
+  $es_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${version}.tar.gz',
   $es_prevent_same_node_allocation = true,
   $group = 'elasticsearch',
   $javahome = '/usr/lib/jvm/java',
