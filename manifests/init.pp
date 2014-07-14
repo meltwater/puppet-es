@@ -72,7 +72,7 @@ define es(
   }
 
   if $es_url == '' {
-    $es_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${version}.tar.gz'
+    $es_url += 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${version}.tar.gz'
   }
   
   $es_download_path    = "${es_path}/elasticsearch-${version}"
