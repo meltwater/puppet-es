@@ -93,8 +93,7 @@ define es(
   }
 
   $dirs = [ $es_path, $es_data_path, "${es_path}/plugin_src", $es_log_path ]
-  file { $dirs: ensure => directory }
-
+  file { $dirs: ensure => directory }->
   # Purge any unmanaged file from the plugins directory to ensure that leftover plugin
   # symlinks from previous provisionings are removed (or if their artifact id changes like for multipercolate)
   file { "${es_path}/plugins":
@@ -103,8 +102,7 @@ define es(
     purge   => true,
     recurse => true,
     notify  => Service[$service_name],
-  }
-
+  }->
   archive { "${name}-${version}":
     url            => $es_url,
     target         => $es_path,
