@@ -13,7 +13,9 @@
 if test -f /lib/lsb/init-functions; then
     . /lib/lsb/init-functions
 fi
-. /etc/init.d/functions
+if test -f /etc/init.d/functions; then
+    . /etc/init.d/functions
+fi
 
 SHUTDOWN_WAIT=30
 
