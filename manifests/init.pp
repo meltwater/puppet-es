@@ -76,7 +76,7 @@ define es(
   } else {
     $es_download_url = "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${version}.tar.gz"
   }
-  
+
   $es_download_path    = "${es_path}/elasticsearch-${version}"
   $es_pidfile          = "${es_pidpath}/${name}.pid"
   $es_xms              = $xms
