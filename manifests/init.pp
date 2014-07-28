@@ -10,7 +10,7 @@ define es(
   $es_tcp_port_range = '9300-9399',
   $es_ulimit_memlock = 'unlimited',
   $es_unicast_hosts = undef,
-  $es_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.3.tar.gz',
+  $es_url = undef,
   $es_prevent_same_node_allocation = true,
   $group = 'elasticsearch',
   $javahome = '/usr/lib/jvm/java',
@@ -71,6 +71,12 @@ define es(
     $es_data_path = $datapath
   }
 
+  if $es_url {
+    $es_download_url = $es_url
+  } else {
+    $es_download_url = "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${version}.tar.gz"
+  }
+  
   $es_download_path    = "${es_path}/elasticsearch-${version}"
   $es_pidfile          = "${es_pidpath}/${name}.pid"
   $es_xms              = $xms
@@ -93,8 +99,7 @@ define es(
   }
 
   $dirs = [ $es_path, $es_data_path, "${es_path}/plugin_src", $es_log_path ]
-  file { $dirs: ensure => directory }
-
+  file { $dirs: ensure => directory }->
   # Purge any unmanaged file from the plugins directory to ensure that leftover plugin
   # symlinks from previous provisionings are removed (or if their artifact id changes like for multipercolate)
   file { "${es_path}/plugins":
@@ -103,10 +108,9 @@ define es(
     purge   => true,
     recurse => true,
     notify  => Service[$service_name],
-  }
-
+  }->
   archive { "${name}-${version}":
-    url            => $es_url,
+    url            => $es_download_url,
     target         => $es_path,
     src_target     => $es_path,
     checksum       => false,
