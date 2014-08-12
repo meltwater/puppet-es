@@ -61,6 +61,11 @@ define es(
   $indices_recovery_max_bytes_per_sec = '512m',
   $indices_recovery_concurrent_streams = '16',
   $script_disable_dynamic = false,
+  # The following parameter enables groovy scripts to execute methods on DateTimeFormat, DateTimeZone and Object
+  # The default setting would not allow DateTimeFormat nor DateTimeZone methods to be executed,
+  # and when adding those two ES would not allow getting things like doc['field'].value without
+  # adding java.lang.Object as well
+  $script_groovy_sandbox_receiver_whitelist = 'java.lang.Object, org.elasticsearch.common.joda.time.format.DateTimeFormat, org.elasticsearch.common.joda.time.DateTimeZone',
 ) {
 
   $es_path  = "${basepath}/${name}"
