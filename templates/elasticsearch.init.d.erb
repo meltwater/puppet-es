@@ -98,7 +98,7 @@ stop() {
 
 findpid() {
   pid=""
-  pid=$(pgrep -U <%= @user %> -f "<%= @es_path %>.*org.elasticsearch.bootstrap.<%=bootstrapClass%>")
+  pid=$(pgrep -U <%= @user %> -f "<%= @es_path %>\s.*org.elasticsearch.bootstrap.<%=bootstrapClass%>")
 
   # validate output of pgrep
   if ! [ "$pid" = "" ] && ! [ "$pid" -gt 0 ]; then
