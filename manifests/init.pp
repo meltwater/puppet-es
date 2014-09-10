@@ -180,7 +180,7 @@ define es(
       command => "sh -c 'cd ${es_path} && bin/plugin -i elasticsearch/marvel/latest'",
       unless  => "sh -c 'stat ${es_path}/plugins/marvel'",
       require => [ File["${es_path}/plugins"], File["${es_path}/bin"], Archive["${name}-${version}"] ],
-    }
+    }->
     file { "${es_path}/plugins/marvel":
       ensure  => directory,
       purge   => false,
