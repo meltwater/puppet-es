@@ -181,5 +181,10 @@ define es(
       unless  => "sh -c 'stat ${es_path}/plugins/marvel'",
       require => [ File["${es_path}/plugins"], File["${es_path}/bin"], Archive["${name}-${version}"] ],
     }
+    file { "${es_path}/plugins/marvel":
+      ensure  => directory,
+      purge   => false,
+      recurse => true,
+    }
   }
 }
