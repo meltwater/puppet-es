@@ -39,7 +39,7 @@ define es(
   $indices_cache_filter_size = '10%',
   $indices_fielddata_cache_size = '10%',
   $indices_fielddata_cache_expire = '5m',
-  $index_cache_filter_type = 'none',
+  $index_cache_filter_type = 'weighted',
   $index_refresh_interval = '60s',
   $cluster_concurrent_rebalance = '768',
   $disable_replica_allocation = false,
