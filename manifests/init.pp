@@ -38,7 +38,7 @@ define es(
   $disable_delete_all_indices = true,
   $indices_cache_filter_size = '10%',
   $indices_fielddata_cache_size = '10%',
-  $indices_fielddata_cache_expire = '5m',
+  $indices_fielddata_cache_expire = '-1',
   $index_cache_filter_type = 'weighted',
   $index_refresh_interval = '60s',
   $cluster_concurrent_rebalance = '768',
