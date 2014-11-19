@@ -8,6 +8,7 @@ transport:
 
 http:
         port: <%= @es_http_port_range %>
+        cors.enabled: <%= @http_cors_enabled %>
 
 cluster:
         name: "<%= @clustername %>"

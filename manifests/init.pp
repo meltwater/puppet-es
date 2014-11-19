@@ -66,6 +66,7 @@ define es(
   # and when adding those two ES would not allow getting things like doc['field'].value without
   # adding java.lang.Object as well
   $script_groovy_sandbox_receiver_whitelist = 'java.lang.Object, org.elasticsearch.common.joda.time.format.DateTimeFormat, org.elasticsearch.common.joda.time.DateTimeZone',
+  $http_cors_enabled = 'true',
 ) {
 
   $es_path  = "${basepath}/${name}"
