@@ -41,6 +41,7 @@ define es(
   $indices_fielddata_cache_expire = '-1',
   $index_cache_filter_type = 'weighted',
   $index_refresh_interval = '60s',
+  $index_eager_cache_load = false,
   $cluster_concurrent_rebalance = '768',
   $disable_replica_allocation = false,
   $disable_allocation = false,
