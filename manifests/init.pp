@@ -62,6 +62,7 @@ define es(
   $indices_recovery_max_bytes_per_sec = '512m',
   $indices_recovery_concurrent_streams = '16',
   $script_disable_dynamic = false,
+  $notify_service = true,
   # The following parameter enables groovy scripts to execute methods on DateTimeFormat, DateTimeZone and Object
   # The default setting would not allow DateTimeFormat nor DateTimeZone methods to be executed,
   # and when adding those two ES would not allow getting things like doc['field'].value without
@@ -114,7 +115,10 @@ define es(
     force   => true,
     purge   => true,
     recurse => true,
-    notify  => Service[$service_name],
+    notify  => $notify_service? {
+      true    => Service[$service_name],
+      default => undef,
+      },
   }->
   archive { "${name}-${version}":
     url            => $es_download_url,
@@ -127,15 +131,24 @@ define es(
   }->
   file { "${es_download_path}/config/elasticsearch.yml":
     content => template("${module_name}/elasticsearch.yml.erb"),
-    notify  => Service[$service_name],
+    notify  => $notify_service? {
+      true    => Service[$service_name],
+      default => undef,
+      },
   }->
   file { "${es_download_path}/config/logging.yml":
     content => template("${module_name}/logging.yml.erb"),
-    notify  => Service[$service_name],
+    notify  => $notify_service? {
+      true    => Service[$service_name],
+      default => undef,
+      },
   }->
   file { "${es_download_path}/bin/elasticsearch.in.sh":
     content => template("${module_name}/elasticsearch.in.sh.erb"),
-    notify  => Service[$service_name],
+    notify  => $notify_service? {
+      true    => Service[$service_name],
+      default => undef,
+      },
   }
 
   file { "${es_path}/bin":
