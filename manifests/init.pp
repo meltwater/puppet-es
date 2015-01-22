@@ -36,6 +36,7 @@ define es(
   $marvel_exporter_hosts = none,
   $iostore = 'niofs',
   $disable_delete_all_indices = true,
+  $destructive_requires_name = true,
   $indices_cache_filter_size = '10%',
   $indices_fielddata_cache_size = '10%',
   $indices_fielddata_cache_expire = '-1',
