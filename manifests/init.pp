@@ -68,7 +68,7 @@ define es(
   # The default setting would not allow DateTimeFormat nor DateTimeZone methods to be executed,
   # and when adding those two ES would not allow getting things like doc['field'].value without
   # adding java.lang.Object as well
-  $script_groovy_sandbox_receiver_whitelist = 'java.lang.Object, org.elasticsearch.common.joda.time.format.DateTimeFormat, org.elasticsearch.common.joda.time.DateTimeZone, java.lang.Math',
+  $script_groovy_sandbox_receiver_whitelist = 'java.lang.Object, org.elasticsearch.common.joda.time.format.DateTimeFormat, org.elasticsearch.common.joda.time.DateTimeZone',
   $http_cors_enabled = true,
 ) {
 
