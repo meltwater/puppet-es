@@ -43,7 +43,7 @@ define es(
   $index_cache_filter_type = 'weighted',
   $index_refresh_interval = '60s',
   $index_eager_cache_load = false,
-  $cluster_concurrent_rebalance = '768',
+  $cluster_concurrent_rebalance = '64',
   $disable_replica_allocation = false,
   $disable_allocation = false,
   $node_concurrent_recoveries = '32',
