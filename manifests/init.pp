@@ -116,10 +116,6 @@ define es(
     force   => true,
     purge   => true,
     recurse => true,
-    notify  => $notify_service? {
-      true    => Service[$service_name],
-      default => undef,
-      },
   }->
   archive { "${name}-${version}":
     url            => $es_download_url,
@@ -132,24 +128,20 @@ define es(
   }->
   file { "${es_download_path}/config/elasticsearch.yml":
     content => template("${module_name}/elasticsearch.yml.erb"),
-    notify  => $notify_service? {
-      true    => Service[$service_name],
-      default => undef,
-      },
   }->
   file { "${es_download_path}/config/logging.yml":
     content => template("${module_name}/logging.yml.erb"),
-    notify  => $notify_service? {
-      true    => Service[$service_name],
-      default => undef,
-      },
   }->
   file { "${es_download_path}/bin/elasticsearch.in.sh":
     content => template("${module_name}/elasticsearch.in.sh.erb"),
-    notify  => $notify_service? {
-      true    => Service[$service_name],
-      default => undef,
-      },
+  }
+
+  #Option to notify the service if the configuration files are changed
+  if $::notify_service {
+    File["${es_path}/plugins"] ~> Service[$service_name]
+    File["${es_download_path}/config/elasticsearch.yml"] ~> Service[$service_name]
+    File["${es_download_path}/config/logging.yml"] ~> Service[$service_name]
+    File["${es_download_path}/bin/elasticsearch.in.sh"] ~> Service[$service_name]
   }
 
   file { "${es_path}/bin":
