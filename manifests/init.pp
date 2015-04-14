@@ -70,6 +70,7 @@ define es(
   # adding java.lang.Object as well
   $script_groovy_sandbox_receiver_whitelist = 'java.lang.Object, org.elasticsearch.common.joda.time.format.DateTimeFormat, org.elasticsearch.common.joda.time.DateTimeZone,java.lang.Math',
   $http_cors_enabled = true,
+  $enable_tweaked_gc_settings = true,
 ) {
 
   $es_path  = "${basepath}/${name}"

@@ -24,22 +24,24 @@ if [ "x$ES_HEAP_NEWSIZE" != "x" ]; then
     JAVA_OPTS="$JAVA_OPTS -Xmn${ES_HEAP_NEWSIZE}"
 fi
 
-# reduce the per-thread stack size
-JAVA_OPTS="$JAVA_OPTS -Xss256k"
-
 # Force the JVM to use IPv4 stack
 # JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
 
+<% if @enable_tweaked_gc_settings == true %>
+
+# reduce the per-thread stack size
+JAVA_OPTS="$JAVA_OPTS -Xss256k"
+
 # Enable aggressive optimizations in the JVM
 #    - Disabled by default as it might cause the JVM to crash
-# JAVA_OPTS="$JAVA_OPTS -XX:+AggressiveOpts"
+JAVA_OPTS="$JAVA_OPTS -XX:+AggressiveOpts"
 
 JAVA_OPTS="$JAVA_OPTS -XX:+UseParNewGC"
 JAVA_OPTS="$JAVA_OPTS -XX:+UseConcMarkSweepGC"
 
 JAVA_OPTS="$JAVA_OPTS -XX:CMSInitiatingOccupancyFraction=70"
 JAVA_OPTS="$JAVA_OPTS -XX:+UseCMSInitiatingOccupancyOnly"
-JAVA_OPTS="$JAVA_OPTS -XX:+NeverTenure -XX:+UseParNewGC -XX:+AlwaysPreTouch -XX:+UseCompressedOops -XX:+AggressiveOpts"
+JAVA_OPTS="$JAVA_OPTS -XX:+NeverTenure -XX:+UseParNewGC -XX:+AlwaysPreTouch -XX:+UseCompressedOops"
 JAVA_OPTS="$JAVA_OPTS -XX:+CMSParallelRemarkEnabled"
 
 # When running under Java 7
@@ -58,6 +60,8 @@ JAVA_OPTS="$JAVA_OPTS -XX:+UseCondCardMark"
 # The path to the heap dump location, note directory must exists and have enough
 # space for a full heap dump.
 #JAVA_OPTS="$JAVA_OPTS -XX:HeapDumpPath=$ES_HOME/logs/heapdump.hprof"
+
+<% end %>
 
 # SPM Monitoring
 if [ "<%= @spmkey %>" != "none" ]; then
