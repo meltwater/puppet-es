@@ -59,6 +59,7 @@ define es(
   $discovery_zen_fd_ping_retries = '10',
   $discovery_zen_fd_ping_interval = '20s',
   $discovery_initial_state_timeout = '30m',
+  $indices_breaker_fielddata_limit = '60%',
   $indices_store_throttle_type = 'none',
   $indices_recovery_max_bytes_per_sec = '512m',
   $indices_recovery_concurrent_streams = '16',
