@@ -146,28 +146,28 @@ define es(
   }
 
   file { "${es_path}/bin":
-    ensure  => link,
-    target  => "${es_download_path}/bin",
+    ensure => link,
+    target => "${es_download_path}/bin",
   }
 
   file { "${es_path}/config":
-    ensure  => link,
-    target  => "${es_download_path}/config",
+    ensure => link,
+    target => "${es_download_path}/config",
   }
 
   file { "${es_path}/lib":
-    ensure  => link,
-    target  => "${es_download_path}/lib",
+    ensure => link,
+    target => "${es_download_path}/lib",
   }
 
   file { "${es_path}/logs":
-    ensure  => link,
-    target  => $es_log_path,
+    ensure => link,
+    target => $es_log_path,
   }
 
   file { "/etc/${name}":
-    ensure  => link,
-    target  => "${es_path}/config",
+    ensure => link,
+    target => "${es_path}/config",
   }
 
   file { "/etc/init.d/${service_name}":
@@ -181,7 +181,7 @@ define es(
     ensure     => running,
     enable     => true,
     hasrestart => true,
-    require    => [ File["${es_path}/logs"], File["${es_path}/config"], File["${es_path}/bin"], File["${es_path}/lib"] ]
+    require    => [ Archive["${name}-${version}"], File[$es_path], File["${es_path}/logs"], File["${es_path}/config"], File["${es_path}/bin"], File["${es_path}/lib"] ]
   }
 
   if $marvel_install {
