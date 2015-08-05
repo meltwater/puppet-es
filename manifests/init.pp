@@ -52,6 +52,7 @@ define es(
   $routing_allocation_disk_threshold_enabled = true,
   $routing_allocation_disk_watermark_low = '0.75',
   $routing_allocation_disk_watermark_high = '0.9',
+  $node_left_delayed_timeout = '1m',
   $index_query_bool_max_clause_count = '131072',
   $index_auto_expand_replicas = false,
   $discovery_zen_ping_timeout = '30s',

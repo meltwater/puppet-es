@@ -24,6 +24,8 @@ cluster:
                         watermark.low: <%= @routing_allocation_disk_watermark_low %>
                         watermark.high: <%= @routing_allocation_disk_watermark_high %>
 
+index.unassigned.node_left.delayed_timeout: <%= @node_left_delayed_timeout %>
+
 path:
         logs: <%= @es_log_path %>
         data: <%= @es_data_path %>
