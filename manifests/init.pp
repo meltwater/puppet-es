@@ -55,6 +55,8 @@ define es(
   $node_left_delayed_timeout = '1m',
   $index_query_bool_max_clause_count = '131072',
   $index_auto_expand_replicas = false,
+  $index_merge_policy_max_merge_at_once = 10,
+  $index_merge_policy_segments_per_tier = 10,
   $discovery_zen_ping_timeout = '30s',
   $discovery_zen_fd_ping_timeout = '30s',
   $discovery_zen_fd_ping_retries = '10',
