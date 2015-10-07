@@ -19,6 +19,7 @@ logger:
   #discovery: TRACE
 
   index.search.slowlog: TRACE, index_search_slow_log_file
+  index.indexing.slowlog: TRACE, index_indexing_slow_log_file
 
 additivity:
   index.search.slowlog: false
@@ -44,6 +45,14 @@ appender:
     file: ${path.logs}/${cluster.name}_index_search_slowlog.log
     maxFileSize: 100000000
     maxBackupIndex: 5
+    layout:
+      type: pattern
+      conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
+
+  index_indexing_slow_log_file:
+    type: dailyRollingFile
+    file: ${path.logs}/${cluster.name}_index_indexing_slowlog.log
+    datePattern: "'.'yyyy-MM-dd"
     layout:
       type: pattern
       conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
