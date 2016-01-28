@@ -18,6 +18,7 @@ define es(
   $multicast = true,
   $nodedata = true,
   $nodetag = '',
+  $path_repo = [],
   $spmkey = 'none',
   $spmpath = '/spm/spm-monitor/',
   $spmversion = '1.6.0',
