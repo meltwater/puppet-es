@@ -137,6 +137,38 @@ define es(
   }->
   file { "${es_download_path}/bin/elasticsearch.in.sh":
     content => template("${module_name}/elasticsearch.in.sh.erb"),
+  }->
+  file { "${es_path}/bin":
+    ensure => link,
+    target => "${es_download_path}/bin",
+  }->
+  file { "${es_path}/config":
+    ensure => link,
+    target => "${es_download_path}/config",
+  }->
+  file { "${es_path}/lib":
+    ensure => link,
+    target => "${es_download_path}/lib",
+  }->
+  file { "${es_path}/logs":
+    ensure => link,
+    target => $es_log_path,
+  }->
+  file { "/etc/${name}":
+    ensure => link,
+    target => "${es_path}/config",
+  }->
+  file { "/etc/init.d/${service_name}":
+    content => template("${module_name}/elasticsearch.init.d.erb"),
+    owner   => root,
+    group   => root,
+    mode    => '0744',
+  }->
+  service { $service_name:
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    require    => [ Archive["${name}-${version}"], File[$es_path], File["${es_path}/logs"], File["${es_path}/config"], File["${es_path}/bin"], File["${es_path}/lib"] ]
   }
 
   #Option to notify the service if the configuration files are changed
@@ -145,45 +177,6 @@ define es(
     File["${es_download_path}/config/elasticsearch.yml"] ~> Service[$service_name]
     File["${es_download_path}/config/logging.yml"] ~> Service[$service_name]
     File["${es_download_path}/bin/elasticsearch.in.sh"] ~> Service[$service_name]
-  }
-
-  file { "${es_path}/bin":
-    ensure => link,
-    target => "${es_download_path}/bin",
-  }
-
-  file { "${es_path}/config":
-    ensure => link,
-    target => "${es_download_path}/config",
-  }
-
-  file { "${es_path}/lib":
-    ensure => link,
-    target => "${es_download_path}/lib",
-  }
-
-  file { "${es_path}/logs":
-    ensure => link,
-    target => $es_log_path,
-  }
-
-  file { "/etc/${name}":
-    ensure => link,
-    target => "${es_path}/config",
-  }
-
-  file { "/etc/init.d/${service_name}":
-    content => template("${module_name}/elasticsearch.init.d.erb"),
-    owner   => root,
-    group   => root,
-    mode    => '0744',
-  }
-
-  service { $service_name:
-    ensure     => running,
-    enable     => true,
-    hasrestart => true,
-    require    => [ Archive["${name}-${version}"], File[$es_path], File["${es_path}/logs"], File["${es_path}/config"], File["${es_path}/bin"], File["${es_path}/lib"] ]
   }
 
   if $marvel_install {
