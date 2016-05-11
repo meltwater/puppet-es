@@ -35,6 +35,7 @@ define es(
   $marvel_install = false,
   $marvel_agent = true,
   $marvel_exporter_hosts = none,
+  $aws_271_install = false,
   $iostore = 'niofs',
   $disable_delete_all_indices = true,
   $destructive_requires_name = true,
@@ -193,6 +194,19 @@ define es(
       require => [ File["${es_path}/plugins"], File["${es_path}/bin"], Archive["${name}-${version}"] ],
     }->
     file { "${es_path}/plugins/marvel":
+      ensure  => directory,
+      purge   => false,
+      recurse => true,
+    }
+  }
+
+  if $aws_271_install {
+    exec { "install_aws_271_${name}":
+      command => "sh -c 'cd ${es_path} && bin/plugin -i elasticsearch/elasticsearch-cloud-aws/2.7.1"'",
+      unless  => "sh -c 'stat ${es_path}/plugins/cloud-aws'",
+      require => [ File["${es_path}/plugins"], File["${es_path}/bin"], Archive["${name}-${version}"] ],
+    }->
+    file { "${es_path}/plugins/cloud-aws":
       ensure  => directory,
       purge   => false,
       recurse => true,
