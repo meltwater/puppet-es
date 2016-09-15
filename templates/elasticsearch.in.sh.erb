@@ -64,3 +64,9 @@ if [ "<%= @spmkey %>" != "none" ]; then
 	JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote -javaagent:<%= @es_spm_jar %>=<%= @es_spm_config %>"
 fi
 
+<% if @enable_flight_recorder -%>
+# Enables JMC profiling
+JAVA_OPTS="$JAVA_OPTS -XX:+UnlockCommercialFeatures -XX:+FlightRecorder"
+<% end -%>
+
+

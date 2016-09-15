@@ -20,6 +20,7 @@ define es(
   $nodetag = '',
   $path_repo = [],
   $spmkey = 'none',
+  $enable_flight_recorder = false,
   $spmpath = '/spm/spm-monitor/',
   $spmversion = '1.6.0',
   $tcpcompress = false,
@@ -137,6 +138,17 @@ define es(
   }->
   file { "${es_download_path}/bin/elasticsearch.in.sh":
     content => template("${module_name}/elasticsearch.in.sh.erb"),
+  }
+  if $enable_flight_recorder {
+    file { "${es_path}/jmc":
+      ensure  => directory,
+      force   => true,
+      purge   => true,
+      recurse => true,
+    }->
+    file { "${es_path}/jmc/settings.jfc":
+      content => template("${module_name}/settings.jfc.erb"),
+    }
   }
 
   #Option to notify the service if the configuration files are changed
