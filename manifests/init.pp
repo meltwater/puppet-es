@@ -25,6 +25,7 @@ define es(
   $spmversion = '1.6.0',
   $tcpcompress = false,
   $threadpools = false,
+  $use_original_gc_settings = false,
   $user = 'elasticsearch',
   $version = '0.90.3',
   $xms = '256m',
