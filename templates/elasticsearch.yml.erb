@@ -43,6 +43,9 @@ threadpool:
 <% end -%>
 <% end -%>
 
+<% if @processors -%>
+processors: <%= @processors %>
+<% end -%>
 
 node:
         data: <%= @nodedata %>

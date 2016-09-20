@@ -30,6 +30,7 @@ define es(
   $version = '0.90.3',
   $xms = '256m',
   $xmx = '2048m',
+  $processors = undef,
   $number_of_shards = '5',
   $number_of_replicas = '1',
   $cluster_nodes = '1',
