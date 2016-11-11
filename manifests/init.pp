@@ -26,6 +26,7 @@ define es(
   $tcpcompress = false,
   $threadpools = false,
   $use_original_gc_settings = false,
+  $es_root_logger_level = "INFO",
   $user = 'elasticsearch',
   $version = '0.90.3',
   $xms = '256m',

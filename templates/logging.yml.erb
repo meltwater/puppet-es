@@ -1,7 +1,7 @@
 # Managed by Puppet, DO NOT TOUCH!
 #
 
-rootLogger: INFO, console, file
+rootLogger: <%= @es_root_logger_level %>, console, file
 logger:
   # log action execution errors for easier debugging
   action: INFO
