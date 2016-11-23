@@ -90,8 +90,13 @@ gateway.expected_nodes: <%= @cluster_nodes %>
 
 index.auto_expand_replicas: <%= @index_auto_expand_replicas %>
 
+<% if @index_merge_scheduler_max_thread_count -%>
+        index.merge.scheduler.max_thread_count: <%= @index_merge_scheduler_max_thread_count %>
+<% end -%>
+
 indices.breaker.fielddata.limit: <%= @indices_breaker_fielddata_limit %>
 indices.store.throttle.type: <%= @indices_store_throttle_type %>
+indices.store.throttle.max_bytes_per_sec:  <%= @indices_store_throttle_max_bytes_per_sec %>
 indices.recovery.max_bytes_per_sec: <%= @indices_recovery_max_bytes_per_sec %>
 indices.recovery.concurrent_streams: <%= @indices_recovery_concurrent_streams %>
 
