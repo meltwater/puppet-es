@@ -55,6 +55,12 @@ node:
         tag: <%= @nodetag %>
 <% end -%>
 
+<% if @attributes -%>
+  <% @attributes.each do |key, val| -%>
+      <%= key %>: <%= val %>
+  <% end %>
+<% end -%>
+
 indices.cache.filter.size: <%= @indices_cache_filter_size %>
 indices.fielddata.cache.size: <%= @indices_fielddata_cache_size %>
 indices.fielddata.cache.expire: <%= @indices_fielddata_cache_expire %>
