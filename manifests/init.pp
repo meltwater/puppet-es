@@ -18,6 +18,7 @@ define es(
   $multicast = true,
   $nodedata = true,
   $nodetag = '',
+  $attributes = undef,
   $path_repo = [],
   $spmkey = 'none',
   $enable_flight_recorder = false,
