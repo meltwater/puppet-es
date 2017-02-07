@@ -17,7 +17,7 @@ define es(
   $master = true,
   $multicast = true,
   $nodedata = true,
-  $nodetag = '',
+  $nodetag = undef,
   $attributes = undef,
   $path_repo = [],
   $spmkey = 'none',
