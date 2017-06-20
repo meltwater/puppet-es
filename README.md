@@ -1,6 +1,10 @@
-Elastic Search Defined Type
-===========================
+[DEPRECATED] Elastic Search Defined Type
+========================================
 This defined type provides a way to use multiple Elastic Search instances on a single machine.
+
+NOTE: This repository is no longer maintained
+---------------------------------------------
+
 
 Dependencies
 ------------
